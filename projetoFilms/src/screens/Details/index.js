@@ -16,7 +16,7 @@ return(
     <View style = {styles.container}>
 
          
-                 <Image style = {styles.image} source={require(`../../Img/${route.params.imagem}`)} />
+                 <Image style = {styles.image} source={{uri:`https://image.tmdb.org/t/p/original/${route.params.imagem}`}} />
                <Stars
     default={2.5}
     count={10}

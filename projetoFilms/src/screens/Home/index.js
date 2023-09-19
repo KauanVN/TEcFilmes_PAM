@@ -34,6 +34,29 @@ useEffect(()=> {
 
 },[])
 
+const [series,setSeries] = useState ([]);
+
+useEffect(()=> {
+
+      async function getSeries(){
+            try{
+                  const response = await fetch("https://api.themoviedb.org/3/tv/popular?api_key=4dee10bc13d15de6ab0e510028720cf7&language=pt-br");
+                  const data = await response.json();
+
+                  console.log(data.results)
+                  setSeries(data.results)
+            }
+            catch(error){
+                  console.error("REQUISIÇÃO FALHOU",error)
+            }
+
+      }
+
+      getSeries();
+
+},[])
+
+
   return (
 
     <View style={styles.container}>
@@ -97,7 +120,7 @@ useEffect(()=> {
 
       showsHorizontalScrollIndicator={false}
 
-        data={Series}
+        data={series}
 
         keyExtractor={(item) => item.id}
 
@@ -110,12 +133,11 @@ useEffect(()=> {
         <CardItens
 
         
+        titulo = {item.name}
 
-        titulo = {item.nome}
+        nota = {item.vote_average}
 
-        nota = {item.nota}
-
-        imagem = {item.imagem}
+        imagem = {item.poster_path}
 
         />
 
