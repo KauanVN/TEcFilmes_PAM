@@ -1,22 +1,38 @@
 import { StyleSheet, Text, View, FlatList } from "react-native";
-
 import BannerFilmes from "../../components/bannerFilmes";
-
 import Filmes from "../../data/movies"
-
 import Header from "../../components/header";
-
 import SearchBar from "../../components/searchbar";
-
 import CardMovies from "../../components/cardFilmes";
-
 import CardItens from "../../components/cardSeries/index"
-
 import Series from "../../data/series"
+import React,{useState, useeffect, useEffect} from "react";
 
 
 
 export default function App() {
+
+const [movies,setMovies] = useState ([]);
+
+useEffect(()=> {
+
+      async function getMovies(){
+            try{
+                  const response = await fetch("https://api.themoviedb.org/3/movie/popular?api_key=500d008d084d3903b3cb4305c1adbe9b&language=pt-br");
+                  const data = await response.json();
+
+                  console.log(data.results)
+                  setMovies(data.results)
+            }
+            catch(error){
+                  console.error("REQUISIÇÃO FALHOU",error)
+            }
+
+      }
+
+      getMovies();
+
+},[])
 
   return (
 
@@ -35,11 +51,12 @@ export default function App() {
 
       <FlatList
 
+
       horizontal ={true}
 
       showsHorizontalScrollIndicator={false}
 
-        data={Filmes}
+        data={movies}
 
         keyExtractor={(item) => item.id}
 
@@ -51,11 +68,11 @@ export default function App() {
 
         
 
-        titulo = {item.nome}
+        titulo = {item.title}
 
-        nota = {item.nota}
+        nota = {item.vote_average}
 
-        imagem = {item.imagem}
+        imagem = {item.poster_path}
 
         />
 

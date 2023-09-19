@@ -15,7 +15,7 @@ export default function CardMovies({titulo,nota,imagem}) {
 
     <TouchableOpacity onPress ={() => navigation.navigate('details' , {titulo:titulo , imagem:imagem, nota:nota})} style = {styles.containerFilmes}>
 
-      <Image style = {styles.imagemFilmes} source={require(`../../Img/${imagem}`)} />
+      <Image style = {styles.imagemFilmes} source={{uri:`https://image.tmdb.org/t/p/original/${imagem}`}} /> 
 
       <Text style = {styles.tituloFilmes}> {titulo}</Text>
 
